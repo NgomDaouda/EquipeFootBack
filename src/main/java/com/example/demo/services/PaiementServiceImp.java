@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.entities.Paiement;
 import com.example.demo.entities.Salaire;
+import com.example.demo.enume.StatutPaiement;
 import com.example.demo.repositories.PaiementRepository;
 import com.example.demo.repositories.SalaireRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,23 +50,58 @@ public class PaiementServiceImp implements PaiementService{
     }
 /*Exécution le 1er de chaque mois à 00h01
     @Scheduled(cron = "0 1 0 1 * *") // (minute heure jour mois jourSemaine année)*/
-//    @Scheduled(cron = "0 */10 * * * *") // Toutes les 10 minutes
-//    public void genererPaiementsMensuels() {
-//        List<Salaire> salaires = salaireRepository.findAll();
-//
-//        for (Salaire salaire : salaires) {
-//            Paiement paiement = new Paiement();
-//            paiement.setNom(salaire.getNom());
-//            paiement.setPrenom(salaire.getPrenom());
-//            paiement.setSalaireMensuel(salaire.getSalaireMensuel() != null ? salaire.getSalaireMensuel() : BigDecimal.ZERO);
-//            paiement.setDatePaiement(new Date()); // aujourd'hui
-//            paiement.setFonction(salaire.getFonction());
-//           // paiement.setSalaire(salaire);
-//
-//            paiementRepository.save(paiement);
-//        }
-//
-//        System.out.println("💰 Paiements générés automatiquement à " + new Date());
-//    }
+    //@Scheduled(cron = "0 */10 * * * *") // Toutes les 10 minutes
+   /*public void genererPaiementsMensuels() {
+       List<Salaire> salaires = salaireRepository.findAll();
+
+        for (Salaire salaire : salaires) {
+            Paiement paiement = new Paiement();
+            paiement.setNom(salaire.getNom());
+            paiement.setPrenom(salaire.getPrenom());
+            paiement.setSalaireMensuel(salaire.getSalaireMensuel() != null ? salaire.getSalaireMensuel() : BigDecimal.ZERO);
+            paiement.setDatePaiement(new Date()); // aujourd'hui
+            paiement.setFonction(salaire.getFonction());
+           // paiement.setSalaire(salaire);
+            paiement.setStatut(StatutPaiement.valueOf("EN_ATTENTE")); // ✅ statut fixé ici
+
+
+            paiementRepository.save(paiement);
+        }
+
+        System.out.println("💰 Paiements générés automatiquement à " + new Date());
+    }*/
+
+    public boolean validerPaiement(Long paiementId) {
+        Optional<Paiement> optionalPaiement = paiementRepository.findById(paiementId);
+
+        if (optionalPaiement.isPresent()) {
+            Paiement paiement = optionalPaiement.get();
+
+            if (paiement.getStatut() == StatutPaiement.EN_ATTENTE) {
+                paiement.setStatut(StatutPaiement.VALIDER);
+                paiementRepository.save(paiement);
+                return true; // statut modifié
+            }
+        }
+
+        return false; // paiement introuvable ou déjà validé
+    }
+
+    public boolean payerSalaire(Long paiementId) {
+        Optional<Paiement> optionalPaiement = paiementRepository.findById(paiementId);
+
+        if (optionalPaiement.isPresent()) {
+            Paiement paiement = optionalPaiement.get();
+
+            if (paiement.getStatut() == StatutPaiement.VALIDER) {
+                paiement.setStatut(StatutPaiement.PAYER);
+                paiementRepository.save(paiement);
+                return true; // statut modifié
+            }
+        }
+
+        return false; // paiement introuvable ou déjà validé
+    }
+
 
 }

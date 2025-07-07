@@ -58,6 +58,13 @@ public class SeniorController {
         return ResponseEntity.ok(seniorDtos);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Senior> getById(@PathVariable Long id) {
+        Optional<Senior> senior = seniorService.getById(id);
+        return senior.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteVehicule(@PathVariable Long id) {
         try {

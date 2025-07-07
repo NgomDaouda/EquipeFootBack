@@ -65,6 +65,13 @@ public class CadetController {
         return ResponseEntity.ok(cadetDtos);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Cadet> getById(@PathVariable Long id) {
+        Optional<Cadet> cadet = cadetService.getById(id);
+        return cadet.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<CadetDto> up(@PathVariable Long id, @RequestBody CadetDto cadetDto) {
         CadetDto updated = cadetService.updateCadet(id, cadetDto);

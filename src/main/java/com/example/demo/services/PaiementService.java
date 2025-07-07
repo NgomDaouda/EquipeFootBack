@@ -12,4 +12,8 @@ public interface PaiementService {
     Paiement save(Paiement paiement);
     Paiement update(Paiement paiement);
     void deleteById(Long id);
+
+    boolean validerPaiement(Long id);
+
+    boolean payerSalaire(Long id);
 }

@@ -102,6 +102,8 @@ public class JoueurServiceImp implements JoueurService{
         joueur.setPoste(joueurDto.getPoste());
         joueur.setPiedFort(joueurDto.getPiedFort());
         joueur.setStatut(joueurDto.getStatut());
+        joueur.setNationalite(joueurDto.getNationalite());
+
 
         // Sauvegarde du joueur dans la base
         Joueur savedJoueur = joueurRepository.save(joueur);
@@ -125,6 +127,8 @@ public class JoueurServiceImp implements JoueurService{
             cadet.setPoste(savedJoueur.getPoste());
             cadet.setPiedFort(savedJoueur.getPiedFort());
             cadet.setStatut(savedJoueur.getStatut());
+            cadet.setNationalite(savedJoueur.getNationalite());
+
             //achat.setOperation(savedOperation); // Si tu as un lien vers l’opération
 
             cadetRepository.save(cadet);
@@ -149,6 +153,8 @@ public class JoueurServiceImp implements JoueurService{
             senior.setPoste(savedJoueur.getPoste());
             senior.setPiedFort(savedJoueur.getPiedFort());
             senior.setStatut(savedJoueur.getStatut());
+            senior.setNationalite(savedJoueur.getNationalite());
+
             //achat.setOperation(savedOperation); // Si tu as un lien vers l’opération
 
             seniorRepository.save(senior);

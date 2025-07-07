@@ -83,6 +83,7 @@ public class CadetServiceImp implements CadetService{
         cadet.setPoste(cadetDto.getPoste());
         cadet.setPiedFort(cadetDto.getPiedFort());
         cadet.setStatut(cadetDto.getStatut());
+        cadet.setNationalite(cadetDto.getNationalite());
         cadet.setPhoto(cadetDto.getPhoto());
         cadet.setTypePhoto(cadetDto.getTypePhoto());
         // Enregistrement du cadet
@@ -98,6 +99,7 @@ public class CadetServiceImp implements CadetService{
         joueur.setPoste(savedCadet.getPoste());
         joueur.setPiedFort(savedCadet.getPiedFort());
         joueur.setStatut(savedCadet.getStatut());
+        joueur.setNationalite(savedCadet.getNationalite());
         joueur.setPhoto(savedCadet.getPhoto());
         joueur.setTypePhoto(savedCadet.getTypePhoto());
 

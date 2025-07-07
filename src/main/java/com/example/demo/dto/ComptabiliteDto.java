@@ -1,24 +1,22 @@
-package com.example.demo.entities;
+package com.example.demo.dto;
 
+import com.example.demo.entities.Salaire;
 import com.example.demo.enume.StatutPaiement;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Paiement {
+public class ComptabiliteDto {
 
 
     @Id
@@ -42,8 +40,8 @@ public class Paiement {
     @JsonProperty("fonction")
     private String fonction;
 
-    @Enumerated(EnumType.STRING)
-    private StatutPaiement statut;
+    @JsonProperty("totalPaiementMensuel")
+    private BigDecimal totalPaiementMensuel;
 
     @ManyToOne
     private Salaire salaire;
@@ -73,20 +71,20 @@ public class Paiement {
         this.prenom = prenom;
     }
 
-    public StatutPaiement getStatut() {
-        return statut;
-    }
-
-    public void setStatut(StatutPaiement statut) {
-        this.statut = statut;
-    }
-
     public BigDecimal getSalaireMensuel() {
         return salaireMensuel;
     }
 
     public void setSalaireMensuel(BigDecimal salaireMensuel) {
         this.salaireMensuel = salaireMensuel;
+    }
+
+    public BigDecimal getTotalPaiementMensuel() {
+        return totalPaiementMensuel;
+    }
+
+    public void setTotalPaiementMensuel(BigDecimal totalPaiementMensuel) {
+        this.totalPaiementMensuel = totalPaiementMensuel;
     }
 
     public String getFonction() {

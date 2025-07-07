@@ -1,6 +1,7 @@
 package com.example.demo.dto;
 
 import com.example.demo.entities.Salaire;
+import com.example.demo.enume.StatutPaiement;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -39,6 +40,9 @@ public class PaiementDto {
     @JsonProperty("fonction")
     private String fonction;
 
+    @JsonProperty("statut")
+    private StatutPaiement statut;
+
     @ManyToOne
     private Salaire salaire;
 
@@ -65,6 +69,14 @@ public class PaiementDto {
 
     public void setPrenom(String prenom) {
         this.prenom = prenom;
+    }
+
+    public StatutPaiement getStatut() {
+        return statut;
+    }
+
+    public void setStatut(StatutPaiement statut) {
+        this.statut = statut;
     }
 
     public BigDecimal getSalaireMensuel() {
